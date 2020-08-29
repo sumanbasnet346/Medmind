@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Welcome-Guide{% endblock title %}
+{% block body %}
+<div class="container">
+    <div class="row my-4">
+        {% for guide in allguide %}
+        <div class="col md-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src='/media/{{guide.image}}' alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{guide.guide_title}}</h5>
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <a href="/guidelines/{{guide.guide_title}}" class="btn btn-primary">Guide</a>
+                </div>
+            </div>
+        </div>
+        <div class="col md-3"></div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock body %}
