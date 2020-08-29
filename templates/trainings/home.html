@@ -19,7 +19,9 @@
         {% for training in alltrain %}
         <div class="col-md-4">
           <div class="card mb-4 box-shadow">
-            <img src='/media/{{training.image}}' class="img-thumbnail" alt="Responsive image">
+            <img src='/media/{{training.image}}' class="img-thumbnail" style="
+    height: 250px;
+    width: 400px;">
             <div class="card-body">
               <p class="card-text">{{training.training_title}}</p>
               <div class="d-flex justify-content-between align-items-center">

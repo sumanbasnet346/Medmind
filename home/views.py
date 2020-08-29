@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 def home(request):
-    return render (request,'home/index.html')
+    return render (request,'home/home.html')
 
 def contact(request):
     if request.method=="POST":
@@ -24,7 +24,7 @@ def contact(request):
 def community(request):
     return render(request,'home/community.html')
 
-def login(request):
+def handlelogin(request):
     if request.method == 'POST':
         loginusername = request.POST['loginusername']
         loginpassword = request.POST['loginpassword']
@@ -33,18 +33,18 @@ def login(request):
         if user is not None:
             login(request,user)
             messages.success(request,"Sucessfully logged in")
-            return redirect('home')
+            return render(request,'home/home.html')
         else:
             messages.error(request,"Innvalid Username or password")
             return redirect('home')
     return HttpResponse('404 - Not Found')
 
-def logout(request):
+def handlelogout(request):
     logout(request)
     messages.success(request,"Sucessfully logged out")
-    return redirect('home')
+    return render(request,'home/home.html')
 
-def signup(request):
+def handlesignup(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
@@ -56,7 +56,7 @@ def signup(request):
         #Username should be alphanumeric
         if not username.isalnum():
             messages.error(request,'Username should contain only alphanumeric characters')
-            return redirect('home')
+            return render(request,'home/home.html')
         # Password should match
         if pass1 != pass2:
             messages.error(request,'Password did not match ')
@@ -67,7 +67,9 @@ def signup(request):
         myuser.last_name = lname  
         myuser.save()
         messages.success(request,"Your account has been created sucessfully")
-        return redirect('home')
+        return render(request,'home/home.html')
+    else:
+        return HttpResponse('404 -Not Found')
 
 def search(request):
     return render(request,'home/search.html')
